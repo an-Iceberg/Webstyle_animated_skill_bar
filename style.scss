@@ -1,0 +1,107 @@
+@mixin flex($direction: column, $content: center, $align: center, $gap: 30px, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $content;
+  align-items: $align;
+  gap: $gap;
+  flex-wrap: $wrap;
+}
+
+*, *:is(::after, ::before) {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font: 1rem "Veranda", sans-serif;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  @include flex();
+  background-color: #2e2e2e;
+
+  .container {
+    @include flex($align: flex-start);
+    isolation: isolate;
+    width: 500px;
+
+    h2 {
+      color: #fff;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .skill {
+      width: 100%;
+      isolation: isolate;
+      position: relative;
+      @include flex($direction: row, $content: space-between, $gap: 0px);
+      padding: 20px 18px;
+      background-image: linear-gradient(#616161 0%, #333 10%, #222);
+      border-radius: 8px;
+      border: 2px solid #000;
+      overflow: hidden;
+      transition: all .5s;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;
+        background-color: #ffffff1a;
+        z-index: 10;
+      }
+
+      .Name, .Value {
+        color: #fff;
+      }
+
+      .Name {
+        width: 70px;
+      }
+
+      .Value {
+        margin-left: 15px;
+      }
+
+      .percent {
+        position: relative;
+        width: 100%;
+        height: 20px;
+        border-radius: 10px;
+        background-color: #151515;
+        box-shadow: inset 0 0 10px #000;
+        overflow: hidden;
+
+        .progress {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 50%;
+          height: 100%;
+          border-radius: 10px;
+          background-image: linear-gradient(to bottom right, red, blue);
+          box-shadow: inset 0 0 2px #000;
+          animation: skill-slide-in 3s ease-in-out forwards;
+
+          @keyframes skill-slide-in {
+            from { width: 0; }
+          }
+        }
+      }
+    }
+
+    &:hover {
+      .skill {
+        opacity: 0.1;
+
+        &:hover {
+          opacity: 1;
+          scale: 1.1;
+        }
+      }
+    }
+  }
+}
